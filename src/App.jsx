@@ -12,30 +12,35 @@ function App() {
   const [arrList, setArrList] = useState([])
 
   useEffect(() => {
-    let url;
+    let urls;
     let newArr = []
     if (listType === "actors") {
-      url = actorLink;
+      urls = [actorLink];
 
     }
     if (listType === "actress") {
-      url = actressLink;
+      urls = [actressLink];
     }
 
-    if (listType === "tutti") {
-      
+    if (listType === "all") {
+      urls = [actorLink, actressLink]
     }
 
 
+    const requests = urls.map((url) => axios.get(url));
+
+    axios.all(requests).then((responses) => {
+      responses.forEach((resp) => {
+        newArr = newArr.concat(resp.data)
+        console.log(newArr)
+      });
 
 
-    axios.get(url).then((resp) => {
-
-
-     newArr = resp.data
       setArrList(newArr)
 
+
     })
+
 
 
 
@@ -63,9 +68,9 @@ function App() {
           {arrList.map(curEl => (
 
             <div className="card" key={listType + curEl.id} >
-              <div className='img-container'>
+              
                 <img src={curEl.image} className=" " alt="..." />
-              </div>
+              
 
               <div className="card-body">
                 <h5 className="card-title">{curEl.name} </h5>
