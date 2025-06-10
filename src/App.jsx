@@ -32,7 +32,7 @@ function App() {
     axios.all(requests).then((responses) => {
       responses.forEach((resp) => {
         newArr = newArr.concat(resp.data)
-        console.log(newArr)
+
       });
 
 
@@ -65,18 +65,18 @@ function App() {
 
         <div className='row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4  my-3'>
 
-          {arrList.map(curEl => (
+          {arrList.map((curEl, index) => (
 
-            <div className="card" key={listType + curEl.id} >
-              
-                <img src={curEl.image} className=" " alt="..." />
-              
+            <div className="card" key={listType + index} >
+
+              <img src={curEl.image} className=" " alt="..." />
+
 
               <div className="card-body">
                 <h5 className="card-title">{curEl.name} </h5>
                 <p className="card-text">{curEl.birth_year} {curEl.death_year} </p>
                 <p className="card-text">{curEl.nationality} </p>
-                <p className="card-text">{curEl.known_for} </p>
+                <p className="card-text">{curEl.known_for || curEl.most_famous_movies} </p>
                 <p className="card-text">{curEl.awards} </p>
                 <p className="card-text">{curEl.biography} </p>
 
