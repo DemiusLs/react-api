@@ -12,10 +12,27 @@ function App() {
   const [arrList, setArrList] = useState([])
 
   useEffect(() => {
+    let url;
+    let newArr = []
+    if (listType === "actors") {
+      url = actorLink;
 
-    axios.get(actorLink).then((resp) => {
+    }
+    if (listType === "actress") {
+      url = actressLink;
+    }
 
-      const newArr = resp.data
+    if (listType === "tutti") {
+      
+    }
+
+
+
+
+    axios.get(url).then((resp) => {
+
+
+     newArr = resp.data
       setArrList(newArr)
 
     })
@@ -24,22 +41,37 @@ function App() {
 
   }, [listType])
 
+
+
+
   return (
     <>
 
       <div className="container">
         <h2 className='text-center'>Attori e attrici</h2>
         <h2 className='text-center'>{listType}</h2>
+
+        <select className="form-select" aria-label="Default select example" value={listType} onChange={(event) => setListType(event.target.value)}>
+
+          <option value="actors">Attori</option>
+          <option value="actress">Attrici</option>
+          <option value="all">Tutti</option>
+        </select>
+
         <div className='row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4  my-3'>
 
           {arrList.map(curEl => (
+
             <div className="card" key={listType + curEl.id} >
-              <img src={curEl.image} className="object-fit-fill  " alt="..." />
+              <div className='img-container'>
+                <img src={curEl.image} className=" " alt="..." />
+              </div>
+
               <div className="card-body">
                 <h5 className="card-title">{curEl.name} </h5>
-                <p className="card-text">{curEl.birth_year} </p>
+                <p className="card-text">{curEl.birth_year} {curEl.death_year} </p>
                 <p className="card-text">{curEl.nationality} </p>
-                <p className="card-text">{curEl.most_famous_movies} </p>
+                <p className="card-text">{curEl.known_for} </p>
                 <p className="card-text">{curEl.awards} </p>
                 <p className="card-text">{curEl.biography} </p>
 
