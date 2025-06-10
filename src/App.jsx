@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
+import CardComponent from './components/CardComponent';
 
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
         <h2 className='text-center'>Attori e attrici</h2>
         <h2 className='text-center'>{listType}</h2>
 
-        <select className="form-select" aria-label="Default select example" value={listType} onChange={(event) => setListType(event.target.value)}>
+        <select id="select" className="form-select" aria-label="Default select example" value={listType} onChange={(event) => setListType(event.target.value)}>
 
           <option value="actors">Attori</option>
           <option value="actress">Attrici</option>
@@ -67,21 +68,7 @@ function App() {
 
           {arrList.map((curEl, index) => (
 
-            <div className="card" key={listType + index} >
-
-              <img src={curEl.image} className=" " alt="..." />
-
-
-              <div className="card-body">
-                <h5 className="card-title">{curEl.name} </h5>
-                <p className="card-text">{curEl.birth_year} {curEl.death_year} </p>
-                <p className="card-text">{curEl.nationality} </p>
-                <p className="card-text">{curEl.known_for || curEl.most_famous_movies} </p>
-                <p className="card-text">{curEl.awards} </p>
-                <p className="card-text">{curEl.biography} </p>
-
-              </div>
-            </div>
+            <CardComponent key={listType + index} curEl={curEl} />
 
           ))}
         </div>
